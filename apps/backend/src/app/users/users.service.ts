@@ -10,7 +10,7 @@ import { v4 as uuidv4 } from 'uuid';
 export class UsersService {
   private users: UsersDto[] = JSON.parse(
     fs.readFileSync(path.join(__dirname, '../../../DB.json'), 'utf-8')
-  );
+  ).filter((user: UsersDto) => user.id != null);
 
   getUsers(page: number): { users: UsersDto[]; totalPages: number } {
     const totalPages = Math.ceil(this.users.length / 10);
@@ -21,7 +21,7 @@ export class UsersService {
   }
 
   getUserById(id: string): { status: number; user: UsersDto | null } {
-    const user = this.users.find((user) => user.id.$oid === id);
+    const user = this.users.find((userDB) => userDB.id.$oid === id);
 
     if (!user) {
       return { status: 404, user: null };
@@ -32,13 +32,13 @@ export class UsersService {
 
   createUser(user: CreateUsersDto): { status: number; message: string } {
     const id = uuidv4();
-    const userToFind = this.users.find((user) => user.email === user.email);
+    const userToFind = this.users.find((userDB) => userDB.email === user.email);
 
     if (userToFind) {
       return { status: 400, message: 'User already exists' };
     }
 
-    this.users.push({ ...user, id: { $oid: id } });
+    this.users.push({ id: { $oid: id }, ...user });
     fs.writeFileSync(
       path.join(__dirname, '../../../DB.json'),
       JSON.stringify(this.users)
@@ -57,8 +57,8 @@ export class UsersService {
     }
 
     this.users[index] = {
-      ...user,
       id: { $oid: id },
+      ...user,
       isActive: this.users[index].isActive,
     };
     fs.writeFileSync(

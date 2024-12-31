@@ -3,7 +3,7 @@ import {
   IsBoolean,
   IsEmail,
   IsNotEmpty,
-  IsNumber,
+  IsOptional,
   IsString,
   MinLength,
   ValidateNested,
@@ -29,9 +29,10 @@ export class UsersDto {
   @IsNotEmpty()
   lastName: string;
 
-  @IsNumber()
-  @IsNotEmpty()
-  phone: number;
+  @IsString()
+  @MinLength(5)
+  @IsOptional()
+  phone: string;
 
   @IsString()
   @IsNotEmpty()
