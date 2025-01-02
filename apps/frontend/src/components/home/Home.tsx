@@ -11,9 +11,13 @@ import { TableCell, TableRow } from '../table/table-styles';
 
 const Home = () => {
   const [page, setPage] = useState(1);
-  console.log("PAGE: ", page)
+  console.log('PAGE: ', page);
 
-  const [data, setData] = useState<{ users: User[]; totalPages: number; totalUsers: number }>({
+  const [data, setData] = useState<{
+    users: User[];
+    totalPages: number;
+    totalUsers: number;
+  }>({
     users: [],
     totalPages: 0,
     totalUsers: 0,
@@ -39,7 +43,6 @@ const Home = () => {
       style={{
         display: 'flex',
         flexDirection: 'column',
-        // gap: '20px',
         minHeight: '100vh',
       }}
     >
@@ -63,7 +66,33 @@ const Home = () => {
             onClick={() => handleRowClick(user.id.$oid)}
           >
             <TableCell className="poppins-regular">
-              {user.isActive ? 'Activo' : 'Inactivo'}
+              {user.isActive ? (
+                <div
+                  style={{
+                    borderRadius: '5px',
+                    backgroundColor: '#90E8BE',
+                    padding: '3px 7px',
+                    width: 'fit-content',
+                    fontSize: '12px',
+                    color: '#262D34',
+                  }}
+                >
+                  Activo
+                </div>
+              ) : (
+                <div
+                  style={{
+                    borderRadius: '5px',
+                    backgroundColor: '#CAD6DC',
+                    padding: '3px 7px',
+                    width: 'fit-content',
+                    fontSize: '12px',
+                    color: '#262D34',
+                  }}
+                >
+                  Inactivo
+                </div>
+              )}
             </TableCell>
             <TableCell className="poppins-regular">
               {user.name + ' ' + user.lastName}
