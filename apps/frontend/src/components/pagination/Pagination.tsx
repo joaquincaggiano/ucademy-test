@@ -45,7 +45,7 @@ const Pagination: React.FC<PaginationProps> = ({
       {totalElements && (
         <span className="poppins-regular" style={{ fontSize: '14px' }}>
           {totalElements.toLocaleString('es-ES')}{' '}
-          {totalElements === 1 ? 'usuario' : 'usuarios'}
+          {totalElements === 1 ? 'alumno' : 'alumnos'}
         </span>
       )}
 
