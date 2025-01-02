@@ -11,12 +11,14 @@ import { Ellipsis, PaginationContainer } from './pagination-styles';
 interface PaginationProps {
   currentPage: number;
   totalPages: number;
+  totalElements?: number;
   onPageChange: (page: number) => void;
 }
 
 const Pagination: React.FC<PaginationProps> = ({
   currentPage,
   totalPages,
+  totalElements,
   onPageChange,
 }) => {
   const { pageNumbers, showStartEllipsis, showEndEllipsis } =
@@ -40,6 +42,13 @@ const Pagination: React.FC<PaginationProps> = ({
 
   return (
     <PaginationContainer>
+      {totalElements && (
+        <span className="poppins-regular" style={{ fontSize: '14px' }}>
+          {totalElements.toLocaleString('es-ES')}{' '}
+          {totalElements === 1 ? 'usuario' : 'usuarios'}
+        </span>
+      )}
+
       <div
         onMouseEnter={() => setColorArrowLeft('#0abb87')}
         onMouseLeave={() => setColorArrowLeft('#262D34')}
@@ -130,6 +139,29 @@ const Pagination: React.FC<PaginationProps> = ({
           ariaLabel="Next page"
         />
       </div>
+
+      <select
+        value={currentPage}
+        onChange={(e) => onPageChange(Number(e.target.value))}
+        className="poppins-regular"
+        style={{
+          border: '2px solid #CAD6DC',
+          borderRadius: '5px',
+          padding: '5px',
+          fontSize: '12px',
+          color: '#262D34',
+        }}
+      >
+        {Array.from({ length: totalPages }, (_, index) => index + 1).map(
+          (page) => {
+            return (
+              <option key={page} value={page}>
+                {page} / page
+              </option>
+            );
+          }
+        )}
+      </select>
     </PaginationContainer>
   );
 };

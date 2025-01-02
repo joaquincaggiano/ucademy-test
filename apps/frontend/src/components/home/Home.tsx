@@ -11,10 +11,12 @@ import { TableCell, TableRow } from '../table/table-styles';
 
 const Home = () => {
   const [page, setPage] = useState(1);
+  console.log("PAGE: ", page)
 
-  const [data, setData] = useState<{ users: User[]; totalPages: number }>({
+  const [data, setData] = useState<{ users: User[]; totalPages: number; totalUsers: number }>({
     users: [],
     totalPages: 0,
+    totalUsers: 0,
   });
 
   useEffect(() => {
@@ -28,26 +30,10 @@ const Home = () => {
     fetchData();
   }, [page]);
 
-  // const handleNextPage = () => {
-  //   if (page === data.totalPages) return;
-
-  //   searchParams.set('page', String(page + 1));
-  //   setSearchParams(searchParams);
-  // };
-
-  // const handlePrevPage = () => {
-  //   if (page === 1) return;
-
-  //   const newPage = Math.max(page - 1, 1);
-  //   searchParams.set('page', String(newPage));
-  //   setSearchParams(searchParams);
-  // };
-
   const handleRowClick = (id: string) => {
     console.log(id);
   };
 
-  console.log(data);
   return (
     <div
       style={{
@@ -68,6 +54,7 @@ const Home = () => {
         columns={['', 'Nombre y apellidos', 'Usuario', 'Email', 'Móvil']}
         totalPages={data.totalPages}
         page={page}
+        totalElements={data.totalUsers}
         onPageChange={setPage}
       >
         {data.users.map((user) => (

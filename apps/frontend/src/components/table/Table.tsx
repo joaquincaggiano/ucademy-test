@@ -5,12 +5,19 @@ interface Props {
   columns: string[];
   page: number;
   totalPages: number;
-  onPageChange: (page: number) => void;
+  totalElements?: number;
   children: React.ReactNode;
+  onPageChange: (page: number) => void;
 }
 
-const Table = ({ columns, children, page, totalPages, onPageChange }: Props) => {
-
+const Table = ({
+  columns,
+  children,
+  page,
+  totalPages,
+  totalElements,
+  onPageChange,
+}: Props) => {
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '17px' }}>
       <TableContainer>
@@ -18,7 +25,7 @@ const Table = ({ columns, children, page, totalPages, onPageChange }: Props) => 
           <thead>
             <tr>
               {columns.map((column) => (
-                <TableHeader className="poppins-semibold">{column}</TableHeader>
+                <TableHeader key={column} className="poppins-semibold">{column}</TableHeader>
               ))}
             </tr>
           </thead>
@@ -30,6 +37,7 @@ const Table = ({ columns, children, page, totalPages, onPageChange }: Props) => 
         currentPage={page}
         totalPages={totalPages}
         onPageChange={onPageChange}
+        totalElements={totalElements}
       />
     </div>
   );

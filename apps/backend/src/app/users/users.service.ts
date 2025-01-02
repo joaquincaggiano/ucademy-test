@@ -12,11 +12,12 @@ export class UsersService {
     fs.readFileSync(path.join(__dirname, '../../../DB.json'), 'utf-8')
   ).filter((user: UsersDto) => user.id != null);
 
-  getUsers(page: number): { users: UsersDto[]; totalPages: number } {
+  getUsers(page: number): { users: UsersDto[]; totalPages: number, totalUsers: number } {
     const totalPages = Math.ceil(this.users.length / 10);
     return {
       users: this.users.slice((page - 1) * 10, page * 10),
       totalPages,
+      totalUsers: this.users.length,
     };
   }
 

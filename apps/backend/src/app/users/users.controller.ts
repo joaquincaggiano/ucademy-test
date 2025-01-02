@@ -20,8 +20,8 @@ export class UsersController {
 
   @Get()
   getUsers(@Query('page', ParseIntPipe) page: number) {
-    const { users, totalPages } = this.usersService.getUsers(page || 1);
-    return { users, totalPages };
+    const { users, totalPages, totalUsers } = this.usersService.getUsers(page || 1);
+    return { users, totalPages, totalUsers };
   }
 
   @Get('/:id')
