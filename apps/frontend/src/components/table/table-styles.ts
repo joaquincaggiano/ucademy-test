@@ -4,7 +4,7 @@ export const TableContainer = styled.div`
   width: 100%;
   overflow-x: auto;
   border-radius: 10px;
-  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+  box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.20);
 `;
 
 export const StyledTable = styled.table`
