@@ -9,7 +9,7 @@ export const DashboardStyled = styled.div`
 `;
 
 export const SidebarStyled = styled.div`
-  padding-top: 35px;
+  padding-top: 45px;
   padding-left: 20px;
   padding-right: 20px;
   padding-bottom: 20px;
@@ -17,7 +17,7 @@ export const SidebarStyled = styled.div`
   border-right: 1px solid #eef0f5;
   display: flex;
   flex-direction: column;
-  gap: 40px;
+  gap: 50px;
 `;
 
 export const SidebarItemStyled = styled.span`
@@ -27,8 +27,8 @@ export const SidebarItemStyled = styled.span`
 
 export const MainStyled = styled.main`
   padding-top: 10px;
-  padding-left: 20px;
-  padding-right: 20px;
+  padding-left: 32px;
+  padding-right: 32px;
   padding-bottom: 20px;
   background-color: #F9FBFF;
   flex-grow: 1;

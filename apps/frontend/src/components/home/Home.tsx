@@ -39,7 +39,7 @@ const Home = () => {
       style={{
         display: 'flex',
         flexDirection: 'column',
-        gap: '20px',
+        // gap: '20px',
         minHeight: '100vh',
       }}
     >

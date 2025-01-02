@@ -1,10 +1,10 @@
-import UcademyLogo from '../../assets/logos/ucademy-logo.png';
 import NotificationSvg from '../icons/NotificationSvg';
 import HelpSvg from '../icons/HelpSvg';
 import GraduateSvg from '../icons/GraduateSvg';
 import { NavLink } from 'react-router';
 import { Outlet } from 'react-router';
 import { DashboardStyled, MainStyled, SidebarItemStyled, SidebarStyled } from './dashboard-style';
+import UcademySvg from '../icons/UcademySvg';
 
 const Dashboard = () => {
   return (
@@ -14,12 +14,13 @@ const Dashboard = () => {
           style={{
             display: 'flex',
             alignItems: 'center',
-            gap: '5px',
+            gap: '20px',
           }}
         >
-          <img src={UcademyLogo} alt="ucademy-logo" />
-          <NotificationSvg />
-          <HelpSvg />
+
+          <UcademySvg />
+          <NotificationSvg width={18} height={20} />
+          <HelpSvg width={20} height={20} />
         </div>
 
         <NavLink
@@ -32,7 +33,7 @@ const Dashboard = () => {
           }}
         >
           <div>
-            <GraduateSvg />
+            <GraduateSvg width={20} height={20} />
           </div>
           <SidebarItemStyled className="poppins-regular">
             Alumnos
