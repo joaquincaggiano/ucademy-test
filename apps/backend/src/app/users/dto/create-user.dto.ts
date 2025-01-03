@@ -21,6 +21,11 @@ export class CreateUsersDto {
   @IsString()
   @MinLength(5)
   @IsOptional()
+  username: string;
+
+  @IsString()
+  @MinLength(5)
+  @IsOptional()
   phone: string;
 
   @IsString()

@@ -3,8 +3,9 @@ export interface User {
   name: string;
   lastName: string;
   email: string;
-  phone: null | string;
+  phone: string | null;
   isActive: boolean;
+  username?: string;
 }
 
 export interface ID {

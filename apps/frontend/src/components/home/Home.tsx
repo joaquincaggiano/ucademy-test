@@ -107,9 +107,9 @@ const Home = () => {
               <TableCell className="poppins-regular">
                 {user.name + ' ' + user.lastName}
               </TableCell>
-              <TableCell className="poppins-regular">username</TableCell>
+              <TableCell className="poppins-regular">{user.username ?? "-"}</TableCell>
               <TableCell className="poppins-regular">{user.email}</TableCell>
-              <TableCell className="poppins-regular">{user.phone}</TableCell>
+              <TableCell className="poppins-regular">{user.phone ?? "-"}</TableCell>
             </TableRow>
           ))}
         </Table>

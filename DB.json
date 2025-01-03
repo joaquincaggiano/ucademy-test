@@ -3,6 +3,7 @@
     "id": { "$oid": "65a7f3aefc13ae4b2ffa26f9" },
     "name": "Darnell",
     "lastName": "Huleatt",
+    "username": "Darnatt",
     "email": "dhuleatt0@illinois.edu",
     "phone": "(142) 3095547",
     "isActive": false
