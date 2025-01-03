@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const DashboardStyled = styled.div`
   display: flex;
@@ -20,6 +20,12 @@ export const SidebarStyled = styled.div`
   gap: 50px;
 `;
 
+export const SidebarHeaderStyled = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 20px;
+`;
+
 export const SidebarItemStyled = styled.span`
   font-size: 14px;
   color: #262d34;
@@ -30,6 +36,6 @@ export const MainStyled = styled.main`
   padding-left: 32px;
   padding-right: 32px;
   padding-bottom: 20px;
-  background-color: #F9FBFF;
+  background-color: #f9fbff;
   flex-grow: 1;
 `;

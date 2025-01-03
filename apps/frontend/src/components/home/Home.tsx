@@ -2,7 +2,7 @@ import PlusSvg from '../icons/PlusSvg';
 import { useEffect, useState } from 'react';
 import { User } from '../../interfaces/user';
 import Table from '../table/Table';
-import { HeaderStyled, TitleStyled } from './home-style';
+import { HeaderStyled, HomeContainerStyled, TitleStyled } from './home-style';
 import { TableCell, TableRow } from '../table/table-styles';
 import { LoadingStyled } from '../../styles/ui/loading';
 import ModalError from '../modal/ModalError';
@@ -74,13 +74,7 @@ const Home = () => {
   };
 
   return (
-    <div
-      style={{
-        display: 'flex',
-        flexDirection: 'column',
-        minHeight: '100vh',
-      }}
-    >
+    <HomeContainerStyled>
       <HeaderStyled>
         <TitleStyled className="poppins-regular">Alumnos</TitleStyled>
         <UcademyButtonStyled className="poppins-semibold">
@@ -164,7 +158,7 @@ const Home = () => {
           }}
         />
       )}
-    </div>
+    </HomeContainerStyled>
   );
 };
 

@@ -3,25 +3,24 @@ import HelpSvg from '../icons/HelpSvg';
 import GraduateSvg from '../icons/GraduateSvg';
 import { NavLink } from 'react-router';
 import { Outlet } from 'react-router';
-import { DashboardStyled, MainStyled, SidebarItemStyled, SidebarStyled } from './dashboard-style';
+import {
+  DashboardStyled,
+  MainStyled,
+  SidebarHeaderStyled,
+  SidebarItemStyled,
+  SidebarStyled,
+} from './dashboard-style';
 import UcademySvg from '../icons/UcademySvg';
 
 const Dashboard = () => {
   return (
     <DashboardStyled>
       <SidebarStyled>
-        <div
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: '20px',
-          }}
-        >
-
+        <SidebarHeaderStyled>
           <UcademySvg />
           <NotificationSvg width={18} height={20} />
           <HelpSvg width={20} height={20} />
-        </div>
+        </SidebarHeaderStyled>
 
         <NavLink
           to="/"
