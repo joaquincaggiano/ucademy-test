@@ -30,11 +30,7 @@ export class UsersController {
   getUserById(@Param('id') id: string) {
     const response = this.usersService.getUserById(id);
 
-    if (response.status !== 200) {
-      return { message: 'User not found' };
-    }
-
-    return { user: response.user };
+    return { user: response.user, status: response.status };
   }
 
   @Post('/create')

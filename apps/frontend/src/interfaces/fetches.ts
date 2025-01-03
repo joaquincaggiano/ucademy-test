@@ -1,4 +1,4 @@
-import { User } from "./user";
+import { User } from './user';
 
 export interface UpdateUsersStatus {
   status: 200 | 404;
@@ -9,4 +9,9 @@ export interface GetUsersData {
   users: User[];
   totalPages: number;
   totalUsers: number;
+}
+
+export interface GetUserById {
+  status: 200 | 404;
+  user: User | null;
 }

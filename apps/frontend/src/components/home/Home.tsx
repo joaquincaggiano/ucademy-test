@@ -8,7 +8,7 @@ import { LoadingStyled } from '../../styles/ui/loading';
 import ModalError from '../modal/ModalError';
 import { UcademyButtonStyled } from '../../styles/ui/button';
 import ModalUser from '../modal/ModalUser';
-import { GetUsersData } from '../../interfaces/fetches';
+import { GetUserById, GetUsersData } from '../../interfaces/fetches';
 
 const Home = () => {
   const [page, setPage] = useState(1);
@@ -54,7 +54,11 @@ const Home = () => {
     try {
       setIsLoading(true);
       const response = await fetch(`http://localhost:3000/api/users/${id}`);
-      const data = await response.json();
+      const data: GetUserById = await response.json();
+
+      if (data.status !== 200 || !data.user) {
+        throw new Error('Usuario no encontrado');
+      }
 
       setUser(data.user);
       setIsModalUserOpen(true);
