@@ -1,12 +1,12 @@
 import { User } from '../../interfaces/user';
-import { UcademyButtonStyled } from '../../styles/ui/button';
+import { CloseButton, UcademyButtonStyled } from '../../styles/ui/button';
 import ImageSvg from '../icons/ImageSvg';
 import UserSvg from '../icons/UserSvg';
 import EmailSvg from '../icons/EmailSvg';
 import PhoneSvg from '../icons/PhoneSvg';
 import { Switch } from '../switch/Switch';
 import { useState } from 'react';
-import { UpdateUsersStatus } from '../../interfaces/fetch';
+import { UpdateUsersStatus } from '../../interfaces/fetches';
 import ModalError from './ModalError';
 import { LoadingStyled } from '../../styles/ui/loading';
 import {
@@ -22,6 +22,7 @@ import {
   ModalUserLayout,
   ModalUserProfile,
 } from '../../styles/modal/modal-styles';
+import ModalUpdateStatus from './ModalUpdateStatus';
 
 interface Props {
   user: User;
@@ -31,8 +32,9 @@ interface Props {
 
 const ModalUser: React.FC<Props> = ({ user, isOpen, onClose }) => {
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState('');
-  const [isModalErrorOpen, setIsModalErrorOpen] = useState(false);
+  const [error, setError] = useState<string>();
+  const [isActive, setIsActive] = useState(user.isActive);
+  const [modalActive, setModalActive] = useState(false);
 
   if (!isOpen) return null;
 
@@ -45,6 +47,12 @@ const ModalUser: React.FC<Props> = ({ user, isOpen, onClose }) => {
   const handleSwitchChange = async (status: boolean) => {
     try {
       setIsLoading(true);
+
+      if (isActive && !status) {
+        setModalActive(true);
+        return;
+      }
+
       const response = await fetch(
         `http://localhost:3000/api/users/${user.id.$oid}/update-status`,
         {
@@ -55,17 +63,20 @@ const ModalUser: React.FC<Props> = ({ user, isOpen, onClose }) => {
           body: JSON.stringify({ isActive: status }),
         }
       );
+
       const data: UpdateUsersStatus = await response.json();
+
       if (data.status !== 200) {
         throw new Error(data.message);
       }
+
+      setIsActive(status);
     } catch (error: unknown) {
       if (error instanceof Error) {
         setError(error.message);
       } else {
         setError('Ha ocurrido un error, vuelva a intentarlo');
       }
-      setIsModalErrorOpen(true);
     } finally {
       setIsLoading(false);
     }
@@ -153,11 +164,15 @@ const ModalUser: React.FC<Props> = ({ user, isOpen, onClose }) => {
             {isLoading ? (
               <LoadingStyled>Cargando...</LoadingStyled>
             ) : (
-              <Switch
-                label={user.isActive ? 'Cuenta activa' : 'Cuenta inactiva'}
-                checked={user.isActive}
-                onChange={handleSwitchChange}
-              />
+              <>
+                <Switch
+                  label={isActive ? 'Cuenta activa' : 'Cuenta inactiva'}
+                  checked={isActive}
+                  onChange={handleSwitchChange}
+                />
+
+                <CloseButton onClick={onClose}>Cerrar</CloseButton>
+              </>
             )}
           </ModalUserLayout>
         </ModalUserContainer>
@@ -165,9 +180,18 @@ const ModalUser: React.FC<Props> = ({ user, isOpen, onClose }) => {
 
       {error && (
         <ModalError
-          isOpen={isModalErrorOpen}
-          onClose={() => setIsModalErrorOpen(false)}
+          isOpen={!!error}
+          onClose={() => setError(undefined)}
           description={error}
+        />
+      )}
+
+      {modalActive && (
+        <ModalUpdateStatus
+          isOpen={modalActive}
+          onClose={() => setModalActive(false)}
+          userId={user.id.$oid}
+          setIsActive={setIsActive}
         />
       )}
     </>

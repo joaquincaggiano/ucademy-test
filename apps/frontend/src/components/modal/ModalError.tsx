@@ -1,5 +1,5 @@
 import { ModalContainer, ModalDescription, ModalHeader, ModalOverlay, ModalTitle } from '../../styles/modal/modal-styles';
-import { CloseButtonError } from '../../styles/ui/button';
+import { ButtonRed } from '../../styles/ui/button';
 import WarningSvg from '../icons/WarningSvg';
 
 interface ModalProps {
@@ -27,7 +27,7 @@ const ModalError: React.FC<ModalProps> = ({ isOpen, onClose, description }) => {
 
         <ModalDescription>{description}</ModalDescription>
 
-        <CloseButtonError onClick={onClose}>Cerrar</CloseButtonError>
+        <ButtonRed onClick={onClose}>Cerrar</ButtonRed>
       </ModalContainer>
     </ModalOverlay>
   );

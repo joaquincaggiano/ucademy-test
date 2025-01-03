@@ -2,21 +2,18 @@ import PlusSvg from '../icons/PlusSvg';
 import { useEffect, useState } from 'react';
 import { User } from '../../interfaces/user';
 import Table from '../table/Table';
-import {
-  HeaderStyled,
-  TitleStyled,
-} from './home-style';
+import { HeaderStyled, TitleStyled } from './home-style';
 import { TableCell, TableRow } from '../table/table-styles';
 import { LoadingStyled } from '../../styles/ui/loading';
 import ModalError from '../modal/ModalError';
 import { UcademyButtonStyled } from '../../styles/ui/button';
 import ModalUser from '../modal/ModalUser';
+import { GetUsersData } from '../../interfaces/fetches';
 
 const Home = () => {
   const [page, setPage] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string>();
-  const [isModalErrorOpen, setIsModalErrorOpen] = useState(false);
 
   const [data, setData] = useState<{
     users: User[];
@@ -38,7 +35,7 @@ const Home = () => {
         const response = await fetch(
           `http://localhost:3000/api/users?page=${page}`
         );
-        const data = await response.json();
+        const data: GetUsersData = await response.json();
         setData(data);
       } catch (error: unknown) {
         if (error instanceof Error) {
@@ -46,7 +43,6 @@ const Home = () => {
         } else {
           setError('Ha ocurrido un error, vuelva a intentarlo');
         }
-        setIsModalErrorOpen(true);
       } finally {
         setIsLoading(false);
       }
@@ -68,7 +64,6 @@ const Home = () => {
       } else {
         setError('Ha ocurrido un error, vuelva a intentarlo');
       }
-      setIsModalErrorOpen(true);
     } finally {
       setIsLoading(false);
     }
@@ -149,8 +144,8 @@ const Home = () => {
 
       {error && (
         <ModalError
-          isOpen={isModalErrorOpen}
-          onClose={() => setIsModalErrorOpen(false)}
+          isOpen={!!error}
+          onClose={() => setError(undefined)}
           description={error}
         />
       )}

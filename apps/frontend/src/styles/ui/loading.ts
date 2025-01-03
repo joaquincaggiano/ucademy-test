@@ -6,7 +6,7 @@ export const LoadingStyled = styled.div`
   align-items: center;
   height: 100%;
   flex-grow: 1;
-  font-size: 20px;
+  font-size: 16px;
   color: #000000;
   font-family: 'Poppins', serif;
   font-weight: 500;

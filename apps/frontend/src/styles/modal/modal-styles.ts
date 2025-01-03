@@ -58,6 +58,7 @@ export const ModalDescription = styled.p`
   font-weight: 400;
   font-style: normal;
   text-align: center;
+  max-width: 450px;
 `;
 
 // User Modal
@@ -134,4 +135,11 @@ export const ModalUserInfoTitle = styled.span`
 export const ModalUserInfoValue = styled.span`
   font-size: 14px;
   color: #262d34;
+`;
+
+export const ModalUpdateStatusButtonContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
 `;
