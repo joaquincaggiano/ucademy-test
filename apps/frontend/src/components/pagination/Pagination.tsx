@@ -6,7 +6,7 @@ import DoubleArrowLeftSvg from '../icons/DoubleArrowLeftSvg';
 import DoubleArrowRightSvg from '../icons/DoubleArrowRightSvg';
 import NavigationButton from './NavigationButton';
 import PageNumber from './PageNumber';
-import { Ellipsis, PaginationContainer } from './pagination-styles';
+import { Ellipsis, PaginationContainer } from '../../styles/pagination/pagination-styles';
 
 interface PaginationProps {
   currentPage: number;

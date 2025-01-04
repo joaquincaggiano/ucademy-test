@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { User } from '../../interfaces/user';
 import PlusSvg from '../icons/PlusSvg';
 import Table from '../table/Table';
-import { TableCell, TableRow } from '../table/table-styles';
+import { TableCell, TableRow } from '../../styles/table/table-styles';
 import { LoadingStyled } from '../../styles/ui/loading';
 import ModalError from '../modal/ModalError';
 import { Button } from '../../styles/ui/button';

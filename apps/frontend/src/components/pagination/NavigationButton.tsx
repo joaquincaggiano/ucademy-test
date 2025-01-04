@@ -1,5 +1,5 @@
 import React from 'react';
-import { IconButton } from './pagination-styles';
+import { IconButton } from '../../styles/pagination/pagination-styles';
 
 interface NavigationButtonProps {
   icon: React.ReactNode;

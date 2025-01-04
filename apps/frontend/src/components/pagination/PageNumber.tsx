@@ -1,5 +1,5 @@
 import React from 'react';
-import { PageButton } from './pagination-styles';
+import { PageButton } from '../../styles/pagination/pagination-styles';
 
 interface PageNumberProps {
   number: number;

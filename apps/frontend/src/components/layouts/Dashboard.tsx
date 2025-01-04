@@ -9,7 +9,7 @@ import {
   SidebarHeaderStyled,
   SidebarItemStyled,
   SidebarStyled,
-} from './dashboard-style';
+} from '../../styles/dashboard/dashboard-style';
 import UcademySvg from '../icons/UcademySvg';
 
 const Dashboard = () => {

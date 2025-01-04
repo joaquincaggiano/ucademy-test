@@ -1,5 +1,5 @@
 import Pagination from '../pagination/Pagination';
-import { StyledTable, TableContainer, TableHeader } from './table-styles';
+import { StyledTable, TableContainer, TableHeader } from '../../styles/table/table-styles';
 
 interface Props {
   columns: string[];
