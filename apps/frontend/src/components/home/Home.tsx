@@ -1,8 +1,7 @@
-import PlusSvg from '../icons/PlusSvg';
 import { useEffect, useState } from 'react';
 import { User } from '../../interfaces/user';
+import PlusSvg from '../icons/PlusSvg';
 import Table from '../table/Table';
-import { HeaderStyled, HomeContainerStyled, TitleStyled } from './home-style';
 import { TableCell, TableRow } from '../table/table-styles';
 import { LoadingStyled } from '../../styles/ui/loading';
 import ModalError from '../modal/ModalError';
@@ -10,6 +9,7 @@ import { Button } from '../../styles/ui/button';
 import ModalUser from '../modal/ModalUser';
 import { GetUserById, GetUsersData } from '../../interfaces/fetches';
 import ModalWriteUser from '../modal/ModalWriteUser';
+import { HeaderStyled, HomeContainerStyled, TitleStyled } from '../../styles/home/home-style';
 
 const Home = () => {
   const [page, setPage] = useState(1);
