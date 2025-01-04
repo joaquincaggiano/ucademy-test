@@ -1,5 +1,5 @@
 import { User } from '../../interfaces/user';
-import { CloseButton, UcademyButtonStyled } from '../../styles/ui/button';
+import { Button } from '../../styles/ui/button';
 import ImageSvg from '../icons/ImageSvg';
 import UserSvg from '../icons/UserSvg';
 import EmailSvg from '../icons/EmailSvg';
@@ -23,6 +23,7 @@ import {
   ModalUserProfile,
 } from '../../styles/modal/modal-styles';
 import ModalUpdateStatus from './ModalUpdateStatus';
+import ModalWriteUser from './ModalWriteUser';
 
 interface Props {
   user: User;
@@ -35,6 +36,7 @@ const ModalUser: React.FC<Props> = ({ user, isOpen, onClose }) => {
   const [error, setError] = useState<string>();
   const [isActive, setIsActive] = useState(user.isActive);
   const [modalActive, setModalActive] = useState(false);
+  const [openWriteUser, setOpenWriteUser] = useState(false);
 
   if (!isOpen) return null;
 
@@ -90,9 +92,12 @@ const ModalUser: React.FC<Props> = ({ user, isOpen, onClose }) => {
           <ModalUserLayout>
             <ModalUserProfile>Perfil</ModalUserProfile>
 
-            <UcademyButtonStyled className="poppins-semibold">
+            <Button
+              onClick={() => setOpenWriteUser(true)}
+              $hoverBoxShadow="0 0 10px 0 rgba(0, 0, 0, 0.1)"
+            >
               Editar estudiante
-            </UcademyButtonStyled>
+            </Button>
           </ModalUserLayout>
 
           {/* Image */}
@@ -171,7 +176,17 @@ const ModalUser: React.FC<Props> = ({ user, isOpen, onClose }) => {
                   onChange={handleSwitchChange}
                 />
 
-                <CloseButton onClick={onClose}>Cerrar</CloseButton>
+                <Button
+                  $backgroundColor="#FFF"
+                  $color="#262D34"
+                  $border="1px solid #262D34"
+                  $hoverBackgroundColor='#F9FBFF'
+                  $hoverColor='#262D34'
+                  $hoverPadding='7.5px 9.5px'
+                  onClick={onClose}
+                >
+                  Cerrar
+                </Button>
               </>
             )}
           </ModalUserLayout>
@@ -192,6 +207,14 @@ const ModalUser: React.FC<Props> = ({ user, isOpen, onClose }) => {
           onClose={() => setModalActive(false)}
           userId={user.id.$oid}
           setIsActive={setIsActive}
+        />
+      )}
+
+      {openWriteUser && (
+        <ModalWriteUser
+          isOpen={openWriteUser}
+          user={user}
+          onClose={() => setOpenWriteUser(false)}
         />
       )}
     </>

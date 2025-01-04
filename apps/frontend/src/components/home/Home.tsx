@@ -6,9 +6,10 @@ import { HeaderStyled, HomeContainerStyled, TitleStyled } from './home-style';
 import { TableCell, TableRow } from '../table/table-styles';
 import { LoadingStyled } from '../../styles/ui/loading';
 import ModalError from '../modal/ModalError';
-import { UcademyButtonStyled } from '../../styles/ui/button';
+import { Button } from '../../styles/ui/button';
 import ModalUser from '../modal/ModalUser';
 import { GetUserById, GetUsersData } from '../../interfaces/fetches';
+import ModalWriteUser from '../modal/ModalWriteUser';
 
 const Home = () => {
   const [page, setPage] = useState(1);
@@ -27,6 +28,8 @@ const Home = () => {
 
   const [user, setUser] = useState<User>();
   const [isModalUserOpen, setIsModalUserOpen] = useState(false);
+
+  const [openWriteUser, setOpenWriteUser] = useState<boolean>(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -77,9 +80,13 @@ const Home = () => {
     <HomeContainerStyled>
       <HeaderStyled>
         <TitleStyled className="poppins-regular">Alumnos</TitleStyled>
-        <UcademyButtonStyled className="poppins-semibold">
+        <Button
+          $padding='10px 18px'
+          $hoverPadding='10px 18px'
+          onClick={() => setOpenWriteUser(true)}
+        >
           <PlusSvg width={20} height={20} color="#fff" /> Nuevo alumno
-        </UcademyButtonStyled>
+        </Button>
       </HeaderStyled>
       {isLoading ? (
         <LoadingStyled>Cargando...</LoadingStyled>
@@ -156,6 +163,14 @@ const Home = () => {
             setIsModalUserOpen(false);
             setUser(undefined);
           }}
+        />
+      )}
+
+      {openWriteUser && (
+        <ModalWriteUser
+          isOpen={openWriteUser}
+          user={null}
+          onClose={() => setOpenWriteUser(false)}
         />
       )}
     </HomeContainerStyled>

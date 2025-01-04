@@ -6,7 +6,7 @@ import {
   ModalOverlay,
   ModalUpdateStatusButtonContainer,
 } from '../../styles/modal/modal-styles';
-import { ButtonRed, CloseButton } from '../../styles/ui/button';
+import { Button } from '../../styles/ui/button';
 import WarningSvg from '../icons/WarningSvg';
 import { UpdateUsersStatus } from '../../interfaces/fetches';
 import ModalError from './ModalError';
@@ -54,7 +54,7 @@ const ModalUpdateStatus = ({ isOpen, onClose, userId, setIsActive }: Props) => {
       setIsLoading(false);
     }
   };
-  
+
   return (
     <>
       <ModalOverlay $isOpen={isOpen}>
@@ -68,13 +68,33 @@ const ModalUpdateStatus = ({ isOpen, onClose, userId, setIsActive }: Props) => {
           </ModalHeader>
 
           <ModalUpdateStatusButtonContainer>
-            <CloseButton onClick={onClose} disabled={isLoading}>
+            <Button
+              $backgroundColor="#FFF"
+              $color="#262D34"
+              $border="1px solid #262D34"
+              $hoverBackgroundColor="#F9FBFF"
+              $hoverColor="#262D34"
+              $padding="10px 18px"
+              $hoverPadding="9.5px 17.5px"
+              onClick={onClose}
+              disabled={isLoading}
+            >
               Cancelar
-            </CloseButton>
+            </Button>
 
-            <ButtonRed onClick={handleStatus} disabled={isLoading}>
+            <Button
+              $backgroundColor="#e36058"
+              $color="#fff"
+              $padding="10px 18px"
+              $border="1px solid #e36058"
+              $hoverBackgroundColor="#ffffff"
+              $hoverColor="#e36058"
+              $hoverPadding="9.5px 17.5px"
+              onClick={handleStatus}
+              disabled={isLoading}
+            >
               {isLoading ? 'Desactivando...' : 'Desactivar'}
-            </ButtonRed>
+            </Button>
           </ModalUpdateStatusButtonContainer>
         </ModalContainer>
       </ModalOverlay>
