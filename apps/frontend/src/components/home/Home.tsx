@@ -121,7 +121,7 @@ const Home = () => {
             'Usuario',
             'Email',
             'Móvil',
-            'Acciones',
+            '',
           ]}
           totalPages={paginationData.totalPages}
           page={page}
