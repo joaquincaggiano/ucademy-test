@@ -9,3 +9,20 @@ export const Input = styled.input`
   color: #262d34;
   font-size: 14px;
 `;
+
+export const InputError = styled.p`
+  color: #F31260;
+  font-size: 12px;
+  font-family: 'Poppins', serif;
+  font-weight: 500;
+  font-style: normal;
+  margin: 4px 0 0 0;
+  line-height: 1.2;
+`;
+
+export const InputContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  min-height: 56px;
+  /* line-height: 0px; */
+`;

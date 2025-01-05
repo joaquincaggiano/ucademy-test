@@ -1,14 +1,20 @@
 import { User } from '../../interfaces/user';
 import {
   ModalOverlay,
-  ModalUserContainer,
   ModalUserLayout,
   ModalUserProfile,
 } from '../../styles/modal/modal-styles';
 import { Button } from '../../styles/ui/button';
-import { FormContainer, FormItem } from '../../styles/ui/form';
-import { Input } from '../../styles/ui/input';
+import {
+  DivFormContainer,
+  FormContainer,
+  FormItem,
+} from '../../styles/ui/form';
+import { Input, InputContainer, InputError } from '../../styles/ui/input';
 import { Label } from '../../styles/ui/label';
+import { FieldValues, useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { userSchema } from '../../schemas/userSchema';
 
 interface Props {
   isOpen: boolean;
@@ -17,9 +23,23 @@ interface Props {
 }
 
 const ModalWriteUser = ({ isOpen, user, onClose }: Props) => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    // reset,
+  } = useForm({
+    resolver: zodResolver(userSchema),
+  });
+
+  console.log('errors: ', errors);
+  const onSubmit = (data: FieldValues) => {
+    console.log('data: ', data);
+  };
+
   return (
     <ModalOverlay $isOpen={isOpen}>
-      <ModalUserContainer>
+      <FormContainer onSubmit={handleSubmit(onSubmit)}>
         {/* Header */}
         <ModalUserLayout>
           <ModalUserProfile>Perfil</ModalUserProfile>
@@ -38,45 +58,82 @@ const ModalWriteUser = ({ isOpen, user, onClose }: Props) => {
               >
                 Cancelar edición
               </Button>
-              <Button>Guardar</Button>
+              <Button type="submit">Guardar</Button>
             </div>
           ) : (
-            <Button>Crear estudiante</Button>
+            <Button type="submit">Crear estudiante</Button>
           )}
         </ModalUserLayout>
 
         {/* Body */}
-        <FormContainer>
+        <DivFormContainer>
           {/* Nombre */}
+
           <FormItem>
-            <Label>Nombre</Label>
-            <Input type="text" />
+            <Label htmlFor="name">Nombre</Label>
+            <InputContainer>
+              <Input id="name" type="text" {...register('name')} />
+
+              <div>
+                {errors.name && (
+                  <InputError>{errors.name.message as string}</InputError>
+                )}
+              </div>
+            </InputContainer>
           </FormItem>
 
           {/* Apellidos */}
           <FormItem>
-            <Label>Apellidos</Label>
-            <Input type="text" />
+            <Label htmlFor="lastName">Apellidos</Label>
+            <InputContainer>
+              <Input id="lastName" type="text" {...register('lastName')} />
+              <div>
+                {errors.lastName && (
+                  <InputError>{errors.lastName.message as string}</InputError>
+                )}
+              </div>
+            </InputContainer>
           </FormItem>
 
           {/* Nombre de usuario */}
           <FormItem>
-            <Label>Nombre de usuario</Label>
-            <Input type="text" />
+            <Label htmlFor="username">Nombre de usuario</Label>
+            <InputContainer>
+              <Input id="username" type="text" {...register('username')} />
+              <div>
+                {errors.username && (
+                  <InputError>{errors.username.message as string}</InputError>
+                )}
+              </div>
+            </InputContainer>
           </FormItem>
 
           {/* Email */}
           <FormItem>
-            <Label>Email</Label>
-            <Input type="email" />
+            <Label htmlFor="email">Email</Label>
+            <InputContainer>
+              <Input id="email" type="email" {...register('email')} />
+              <div>
+                {errors.email && (
+                  <InputError>{errors.email.message as string}</InputError>
+                )}
+              </div>
+            </InputContainer>
           </FormItem>
 
           {/* Móvil */}
           <FormItem>
-            <Label>Móvil</Label>
-            <Input type="tel" />
+            <Label htmlFor="phone">Móvil</Label>
+            <InputContainer>
+              <Input id="phone" type="text" {...register('phone')} />
+              <div>
+                {errors.phone && (
+                  <InputError>{errors.phone.message as string}</InputError>
+                )}
+              </div>
+            </InputContainer>
           </FormItem>
-        </FormContainer>
+        </DivFormContainer>
 
         {/* Footer */}
         <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
@@ -92,7 +149,7 @@ const ModalWriteUser = ({ isOpen, user, onClose }: Props) => {
             Cerrar
           </Button>
         </div>
-      </ModalUserContainer>
+      </FormContainer>
     </ModalOverlay>
   );
 };

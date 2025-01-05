@@ -3,7 +3,7 @@ import { StrictMode, Suspense } from 'react';
 import { BrowserRouter } from 'react-router';
 
 import App from './app/app';
-import Loading from './components/loading/Loading';
+import { LoadingStyled } from './styles/ui/loading';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -12,7 +12,7 @@ const root = ReactDOM.createRoot(
 root.render(
   <StrictMode>
     <BrowserRouter>
-      <Suspense fallback={<Loading />}>
+      <Suspense fallback={<LoadingStyled>Cargando...</LoadingStyled>}>
         <App />
       </Suspense>
     </BrowserRouter>
