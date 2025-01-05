@@ -222,7 +222,6 @@ const ModalUser: React.FC<Props> = ({ isOpen, onClose }) => {
       {openWriteUser && (
         <ModalWriteUser
           isOpen={openWriteUser}
-          user={user}
           onClose={() => setOpenWriteUser(false)}
         />
       )}

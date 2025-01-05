@@ -48,7 +48,7 @@ const Home = () => {
           `http://localhost:3000/api/users?page=${page}`
         );
         const data: GetUsersData = await response.json();
-        // setData(data);
+
         setUsers(data.users);
         setPaginationData({
           totalPages: data.totalPages,
@@ -186,7 +186,6 @@ const Home = () => {
       {openWriteUser && (
         <ModalWriteUser
           isOpen={openWriteUser}
-          user={null}
           onClose={() => setOpenWriteUser(false)}
         />
       )}

@@ -1,4 +1,3 @@
-import { User } from '../../interfaces/user';
 import {
   ModalOverlay,
   ModalUserLayout,
@@ -19,14 +18,22 @@ import { useState } from 'react';
 import { FetchUserResponse } from '../../interfaces/fetches';
 import ModalError from './ModalError';
 import { ContainerLoading, Loader } from '../../styles/ui/loading';
+import { useSearchParams } from 'react-router';
+import { useUsersStore } from '../../store/users';
 
 interface Props {
   isOpen: boolean;
-  user: User | null;
   onClose: () => void;
 }
 
-const ModalWriteUser = ({ isOpen, user, onClose }: Props) => {
+const ModalWriteUser = ({ isOpen, onClose }: Props) => {
+  const [searchParams] = useSearchParams();
+  const page = parseInt(searchParams.get('page') || '1');
+
+  const user = useUsersStore((state) => state.user);
+  const setUser = useUsersStore((state) => state.setUser);
+  const setRefreshUsers = useUsersStore((state) => state.setRefreshUsers);
+
   const {
     register,
     handleSubmit,
@@ -47,7 +54,9 @@ const ModalWriteUser = ({ isOpen, user, onClose }: Props) => {
   const [error, setError] = useState<string>();
 
   const onSubmit = async (data: FieldValues) => {
-    const url = user ? `/api/users/${user.id.$oid}/update` : '/api/users/create';
+    const url = user
+      ? `/api/users/${user.id.$oid}/update`
+      : '/api/users/create';
     try {
       setIsLoading(true);
 
@@ -64,6 +73,12 @@ const ModalWriteUser = ({ isOpen, user, onClose }: Props) => {
       if (res.status !== 200) {
         throw new Error(res.message);
       }
+
+      if (user) {
+        setUser({ ...user, ...data });
+      }
+
+      setRefreshUsers(page);
 
       reset();
       onClose();
