@@ -47,11 +47,11 @@ const ModalWriteUser = ({ isOpen, user, onClose }: Props) => {
   const [error, setError] = useState<string>();
 
   const onSubmit = async (data: FieldValues) => {
-    const url = user ? `/api/users/${user.id}/update` : '/api/users/create';
+    const url = user ? `/api/users/${user.id.$oid}/update` : '/api/users/create';
     try {
       setIsLoading(true);
 
-      const response = await fetch(url, {
+      const response = await fetch(`http://localhost:3000${url}`, {
         method: user ? 'PUT' : 'POST',
         headers: {
           'Content-Type': 'application/json',
