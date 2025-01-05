@@ -7,7 +7,7 @@ import {
   ModalOverlay,
 } from '../../styles/modal/modal-styles';
 import { Button } from '../../styles/ui/button';
-import { FetchUserResponse } from '../../interfaces/fetches';
+import { FetchResponse } from '../../interfaces/fetches';
 import ModalError from './ModalError';
 import { useUsersStore } from '../../store/users';
 import { useSearchParams } from 'react-router';
@@ -35,7 +35,7 @@ const ModalDeleteUser = ({ isOpen, userId, onClose }: Props) => {
           method: 'DELETE',
         }
       );
-      const res: FetchUserResponse = await response.json();
+      const res: FetchResponse = await response.json();
 
       if (res.status !== 200) {
         throw new Error(res.message);

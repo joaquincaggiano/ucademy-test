@@ -5,7 +5,7 @@ import EmailSvg from '../icons/EmailSvg';
 import PhoneSvg from '../icons/PhoneSvg';
 import { Switch } from '../switch/Switch';
 import { useState } from 'react';
-import { FetchUserResponse } from '../../interfaces/fetches';
+import { FetchResponse } from '../../interfaces/fetches';
 import ModalError from './ModalError';
 import {
   ModalOverlay,
@@ -73,7 +73,7 @@ const ModalUser: React.FC<Props> = ({ isOpen, onClose }) => {
         }
       );
 
-      const data: FetchUserResponse = await response.json();
+      const data: FetchResponse = await response.json();
 
       if (data.status !== 200) {
         throw new Error(data.message);
@@ -112,7 +112,11 @@ const ModalUser: React.FC<Props> = ({ isOpen, onClose }) => {
           {/* Image */}
           <ModalUserDivContainer>
             <ModalUserImage>
-              <ImageSvg width={44} height={44} />
+              {user.image ? (
+                <img src={user.image} alt="Profile" style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '100%' }} />
+              ) : (
+                <ImageSvg width={44} height={44} />
+              )}
             </ModalUserImage>
           </ModalUserDivContainer>
 

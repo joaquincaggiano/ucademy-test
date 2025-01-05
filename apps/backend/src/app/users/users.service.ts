@@ -15,8 +15,11 @@ export class UsersService {
 
   constructor(private readonly awsService: AwsService) {}
 
-
-  getUsers(page: number): { users: UsersDto[]; totalPages: number, totalUsers: number } {
+  getUsers(page: number): {
+    users: UsersDto[];
+    totalPages: number;
+    totalUsers: number;
+  } {
     const totalPages = Math.ceil(this.users.length / 10);
     return {
       users: this.users.slice((page - 1) * 10, page * 10),
@@ -35,10 +38,14 @@ export class UsersService {
     return { status: 200, user };
   }
 
-  async createUser(user: CreateUsersDto): Promise<{ status: number; message: string }> {
+  async createUser(
+    user: CreateUsersDto
+  ): Promise<{ status: number; message: string; user?: UsersDto }> {
     const { base64String, ...userData } = user;
     const id = uuidv4();
-    const userToFind = this.users.find((userDB) => userDB.email === userData.email);
+    const userToFind = this.users.find(
+      (userDB) => userDB.email === userData.email
+    );
 
     if (userToFind) {
       return { status: 400, message: 'User already exists' };
@@ -52,30 +59,38 @@ export class UsersService {
       );
     }
 
-    this.users.push({ id: { $oid: id }, ...userData, isActive: true, image: url });
+    const newUser = {
+      id: { $oid: id },
+      ...userData,
+      isActive: true,
+      image: url,
+    };
+
+    this.users.push(newUser);
+
     fs.writeFileSync(
       path.join(__dirname, '../../../DB.json'),
       JSON.stringify(this.users)
     );
 
-    return { status: 200, message: 'User created successfully' };
+    return { status: 200, message: 'User created successfully', user: newUser };
   }
 
   async updateUser(
     id: string,
     user: UpdateUsersDto
-  ): Promise<{ status: number; message: string }> {
+  ): Promise<{ status: number; message: string; user?: UsersDto }> {
     const index = this.users.findIndex((userDB) => userDB.id.$oid === id);
 
     if (index === -1) {
-      return { status: 404, message: 'User not found' };
+      return { status: 404, message: 'User not found', user: null };
     }
 
     const { base64String, ...userData } = user;
 
     let url = null;
     const key = `profile_image/${id}.png`;
-    
+
     if (base64String) {
       if (this.users[index].image) {
         await this.awsService.deleteImage(key);
@@ -93,7 +108,12 @@ export class UsersService {
       path.join(__dirname, '../../../DB.json'),
       JSON.stringify(this.users)
     );
-    return { status: 200, message: 'User updated successfully' };
+
+    return {
+      status: 200,
+      message: 'User updated successfully',
+      user: this.users[index],
+    };
   }
 
   updateUserStatus(

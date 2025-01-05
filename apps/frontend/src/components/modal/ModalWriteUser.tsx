@@ -86,14 +86,11 @@ const ModalWriteUser = ({ isOpen, onClose }: Props) => {
 
       const res: FetchUserResponse = await response.json();
 
-      if (res.status !== 200) {
+      if (res.status !== 200 || !res.user) {
         throw new Error(res.message);
       }
 
-      if (user) {
-        setUser({ ...user, ...data });
-      }
-
+      setUser(res.user);
       setRefreshUsers(page);
 
       reset();
@@ -224,7 +221,12 @@ const ModalWriteUser = ({ isOpen, onClose }: Props) => {
             {/* Foto de perfil */}
             <FormItem>
               <Label htmlFor="image">Foto de perfil</Label>
-              <input id="image" type="file" accept="image/*" onChange={handleFileChange} />
+              <input
+                id="image"
+                type="file"
+                accept="image/*"
+                onChange={handleFileChange}
+              />
             </FormItem>
           </DivFormContainer>
 

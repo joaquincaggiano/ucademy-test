@@ -40,6 +40,7 @@ export class UsersController {
     return {
       status: response.status,
       message: response.message,
+      user: response.user,
     };
   }
 
@@ -50,6 +51,7 @@ export class UsersController {
     return {
       status: response.status,
       message: response.message,
+      user: response.user,
     };
   }
 
