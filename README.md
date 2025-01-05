@@ -29,3 +29,12 @@ PD: El objetivo de la prueba es simplemente valorar las desiciones que toma el c
 ## Entrega:
 
 Una vez finalizada la prueba se deberá entregar en un archivo comprimido (zip, tar.gz, etc) con el nombre del candidato.
+
+## Nota:
+Para hacer funcionar la aplicación, deberás crear el archivo .env en la raíz del repositorio con las siguientes variables:
+
+- AWS_ACCESS_KEY_ID=
+- AWS_SECRET_ACCESS_KEY=
+- AWS_REGION=
+- AWS_S3_BUCKET_NAME=
+
