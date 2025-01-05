@@ -31,4 +31,8 @@ export class CreateUsersDto {
   @IsNotEmpty()
   @IsEmail()
   email: string;
+
+  @IsString()
+  @IsOptional()
+  base64String: string;
 }

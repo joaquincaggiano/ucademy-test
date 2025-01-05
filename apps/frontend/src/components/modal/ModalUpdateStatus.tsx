@@ -8,7 +8,7 @@ import {
 } from '../../styles/modal/modal-styles';
 import { Button } from '../../styles/ui/button';
 import WarningSvg from '../icons/WarningSvg';
-import { FetchUserResponse } from '../../interfaces/fetches';
+import { FetchResponse } from '../../interfaces/fetches';
 import ModalError from './ModalError';
 import { useUsersStore } from '../../store/users';
 import { useSearchParams } from 'react-router';
@@ -46,7 +46,7 @@ const ModalUpdateStatus = ({ isOpen, onClose, userId }: Props) => {
         }
       );
 
-      const data: FetchUserResponse = await response.json();
+      const data: FetchResponse = await response.json();
 
       if (data.status !== 200) {
         throw new Error(data.message);

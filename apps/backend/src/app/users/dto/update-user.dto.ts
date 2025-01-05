@@ -32,6 +32,10 @@ export class UpdateUsersDto {
   @IsNotEmpty()
   @IsEmail()
   email: string;
+
+  @IsString()
+  @IsOptional()
+  base64String: string;
 }
 
 export class UpdateUsersStatusDto {

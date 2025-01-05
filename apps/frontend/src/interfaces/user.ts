@@ -6,6 +6,7 @@ export interface User {
   phone: string | null;
   isActive: boolean;
   username?: string;
+  image?: string;
 }
 
 export interface ID {
