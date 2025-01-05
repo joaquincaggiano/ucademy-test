@@ -191,7 +191,6 @@ const ModalUser: React.FC<Props> = ({ isOpen, onClose }) => {
                   $border="1px solid #262D34"
                   $hoverBackgroundColor='#F9FBFF'
                   $hoverColor='#262D34'
-                  $hoverPadding='7.5px 9.5px'
                   disabled={isLoading}
                   onClick={onClose}
                 >

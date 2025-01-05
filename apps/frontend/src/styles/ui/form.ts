@@ -1,7 +1,8 @@
 import styled from 'styled-components';
 
 export const FormContainer = styled.form`
-  min-width: 500px;
+  width: 100%;
+  max-width: 500px;
   /* overflow-y: auto; */
   display: flex;
   flex-direction: column;

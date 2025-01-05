@@ -110,7 +110,7 @@ const ModalWriteUser = ({ isOpen, onClose }: Props) => {
                   $padding="7px 9px"
                   $hoverBackgroundColor="#F9FBFF"
                   $hoverColor="#262D34"
-                  $hoverPadding="6.5px 8.5px"
+                  $hoverPadding="7px 9px"
                   onClick={onClose}
                   disabled={isLoading}
                 >
@@ -215,7 +215,6 @@ const ModalWriteUser = ({ isOpen, onClose }: Props) => {
               $border="1px solid #262D34"
               $hoverBackgroundColor="#F9FBFF"
               $hoverColor="#262D34"
-              $hoverPadding="7.5px 9.5px"
               onClick={onClose}
             >
               Cerrar

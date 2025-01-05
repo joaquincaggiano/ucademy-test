@@ -40,7 +40,7 @@ const ModalDeleteUser = ({ isOpen, userId, onClose }: Props) => {
       if (res.status !== 200) {
         throw new Error(res.message);
       }
-      
+
       setRefreshUsers(page);
       onClose();
     } catch (error: unknown) {
@@ -68,8 +68,6 @@ const ModalDeleteUser = ({ isOpen, userId, onClose }: Props) => {
               $border="1px solid #262D34"
               $hoverBackgroundColor="#F9FBFF"
               $hoverColor="#262D34"
-              $padding="8px 10px"
-              $hoverPadding="8px 10px"
               onClick={onClose}
               disabled={isLoading}
             >
@@ -79,11 +77,9 @@ const ModalDeleteUser = ({ isOpen, userId, onClose }: Props) => {
             <Button
               $backgroundColor="#e36058"
               $color="#fff"
-              $padding="8px 10px"
               $border="1px solid #e36058"
               $hoverBackgroundColor="#ffffff"
               $hoverColor="#e36058"
-              $hoverPadding="8px 10px"
               onClick={handleDeleteUser}
               disabled={isLoading}
             >

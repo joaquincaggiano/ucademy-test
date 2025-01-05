@@ -37,11 +37,9 @@ const ModalError: React.FC<ModalProps> = ({ isOpen, onClose, description }) => {
         <Button
           $backgroundColor="#e36058"
           $color="#fff"
-          $padding="8px 10px"
           $border="1px solid #e36058"
           $hoverBackgroundColor="#ffffff"
           $hoverColor="#e36058"
-          $hoverPadding="8px 10px"
           onClick={onClose}
         >
           Cerrar

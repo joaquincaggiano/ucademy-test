@@ -87,7 +87,7 @@ const ModalUpdateStatus = ({ isOpen, onClose, userId }: Props) => {
               $hoverBackgroundColor="#F9FBFF"
               $hoverColor="#262D34"
               $padding="10px 18px"
-              $hoverPadding="9.5px 17.5px"
+              $hoverPadding="10px 18px"
               onClick={onClose}
               disabled={isLoading}
             >

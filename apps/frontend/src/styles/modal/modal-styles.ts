@@ -14,6 +14,8 @@ export const ModalOverlay = styled.div<{ $isOpen: boolean }>`
 `;
 
 export const ModalContainer = styled.div`
+  width: 100%;
+  max-width: 500px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -22,7 +24,6 @@ export const ModalContainer = styled.div`
   padding: 25px;
   border-radius: 8px;
   box-shadow: 0px 3px 8px 0px rgba(38, 45, 52, 0.17);
-  min-width: 500px;
   animation: slideIn 0.3s ease-out;
 
   @keyframes slideIn {
@@ -66,7 +67,8 @@ export const ModalDescription = styled.p`
 // User Modal
 
 export const ModalUserContainer = styled.div`
-  min-width: 500px;
+  width: 100%;
+  max-width: 500px;
   display: flex;
   flex-direction: column;
   gap: 40px;
