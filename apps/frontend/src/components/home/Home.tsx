@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import { User } from '../../interfaces/user';
 import PlusSvg from '../icons/PlusSvg';
 import Table from '../table/Table';
 import { TableCell, TableRow } from '../../styles/table/table-styles';
@@ -8,27 +7,35 @@ import { Button } from '../../styles/ui/button';
 import ModalUser from '../modal/ModalUser';
 import { GetUserById, GetUsersData } from '../../interfaces/fetches';
 import ModalWriteUser from '../modal/ModalWriteUser';
-import { HeaderStyled, HomeContainerStyled, TitleStyled } from '../../styles/home/home-style';
+import {
+  HeaderStyled,
+  HomeContainerStyled,
+  TitleStyled,
+} from '../../styles/home/home-style';
 import { ContainerLoading, Loader } from '../../styles/ui/loading';
 import { useSearchParams } from 'react-router';
+import { useUsersStore } from '../../store/users';
 
 const Home = () => {
   const [searchParams, setSearchParams] = useSearchParams();
-  const page = parseInt(searchParams.get("page") || "1");
+  const page = parseInt(searchParams.get('page') || '1');
+
+  const users = useUsersStore((state) => state.users);
+  const user = useUsersStore((state) => state.user);
+  const setUsers = useUsersStore((state) => state.setUsers);
+  const setUser = useUsersStore((state) => state.setUser);
+
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string>();
 
-  const [data, setData] = useState<{
-    users: User[];
+  const [paginationData, setPaginationData] = useState<{
     totalPages: number;
     totalUsers: number;
   }>({
-    users: [],
     totalPages: 0,
     totalUsers: 0,
   });
 
-  const [user, setUser] = useState<User>();
   const [isModalUserOpen, setIsModalUserOpen] = useState(false);
 
   const [openWriteUser, setOpenWriteUser] = useState<boolean>(false);
@@ -41,7 +48,12 @@ const Home = () => {
           `http://localhost:3000/api/users?page=${page}`
         );
         const data: GetUsersData = await response.json();
-        setData(data);
+        // setData(data);
+        setUsers(data.users);
+        setPaginationData({
+          totalPages: data.totalPages,
+          totalUsers: data.totalUsers,
+        });
       } catch (error: unknown) {
         if (error instanceof Error) {
           setError(error.message);
@@ -53,7 +65,7 @@ const Home = () => {
       }
     };
     fetchData();
-  }, [page]);
+  }, [page, setUsers, setPaginationData]);
 
   const handleRowClick = async (id: string) => {
     try {
@@ -83,26 +95,28 @@ const Home = () => {
       <HeaderStyled>
         <TitleStyled className="poppins-regular">Alumnos</TitleStyled>
         <Button
-          $padding='10px 18px'
-          $hoverPadding='10px 18px'
+          $padding="10px 18px"
+          $hoverPadding="10px 18px"
           onClick={() => setOpenWriteUser(true)}
         >
           <PlusSvg width={20} height={20} color="#fff" /> Nuevo alumno
         </Button>
       </HeaderStyled>
       {isLoading ? (
-        <ContainerLoading $isGrow><Loader $width='40px' $height='40px' $borderWidth='4px' /></ContainerLoading>
+        <ContainerLoading $isGrow>
+          <Loader $width="40px" $height="40px" $borderWidth="4px" />
+        </ContainerLoading>
       ) : (
         <Table
           columns={['', 'Nombre y apellidos', 'Usuario', 'Email', 'Móvil']}
-          totalPages={data.totalPages}
+          totalPages={paginationData.totalPages}
           page={page}
-          totalElements={data.totalUsers}
+          totalElements={paginationData.totalUsers}
           onPageChange={(newPage) => {
             setSearchParams({ page: newPage.toString() });
           }}
         >
-          {data.users.map((user) => (
+          {users.map((user) => (
             <TableRow
               key={user.id.$oid}
               onClick={() => handleRowClick(user.id.$oid)}
@@ -161,11 +175,10 @@ const Home = () => {
 
       {user && (
         <ModalUser
-          user={user}
           isOpen={isModalUserOpen}
           onClose={() => {
             setIsModalUserOpen(false);
-            setUser(undefined);
+            setUser(null);
           }}
         />
       )}

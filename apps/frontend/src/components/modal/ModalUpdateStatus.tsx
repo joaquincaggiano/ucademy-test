@@ -10,17 +10,27 @@ import { Button } from '../../styles/ui/button';
 import WarningSvg from '../icons/WarningSvg';
 import { FetchUserResponse } from '../../interfaces/fetches';
 import ModalError from './ModalError';
+import { useUsersStore } from '../../store/users';
+import { useSearchParams } from 'react-router';
 
 interface Props {
   isOpen: boolean;
   onClose: () => void;
   userId: string;
-  setIsActive: (value: boolean) => void;
 }
 
-const ModalUpdateStatus = ({ isOpen, onClose, userId, setIsActive }: Props) => {
+const ModalUpdateStatus = ({ isOpen, onClose, userId }: Props) => {
+  const [searchParams] = useSearchParams();
+  const page = parseInt(searchParams.get('page') || '1');
+
+  const user = useUsersStore((state) => state.user);
+  const setUser = useUsersStore((state) => state.setUser);
+  const setRefreshUsers = useUsersStore((state) => state.setRefreshUsers);
+
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string>();
+
+  if (!user) return null;
 
   const handleStatus = async () => {
     try {
@@ -42,8 +52,10 @@ const ModalUpdateStatus = ({ isOpen, onClose, userId, setIsActive }: Props) => {
         throw new Error(data.message);
       }
 
+      setUser({ ...user, isActive: false });
+      setRefreshUsers(page);
+
       onClose();
-      setIsActive(false);
     } catch (error: unknown) {
       if (error instanceof Error) {
         setError(error.message);
