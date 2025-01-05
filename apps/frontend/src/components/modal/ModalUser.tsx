@@ -113,7 +113,16 @@ const ModalUser: React.FC<Props> = ({ isOpen, onClose }) => {
           <ModalUserDivContainer>
             <ModalUserImage>
               {user.image ? (
-                <img src={user.image} alt="Profile" style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '100%' }} />
+                <img
+                  src={`${user.image}?${new Date().getTime()}`}
+                  alt="Profile"
+                  style={{
+                    width: '100%',
+                    height: '100%',
+                    objectFit: 'cover',
+                    borderRadius: '100%',
+                  }}
+                />
               ) : (
                 <ImageSvg width={44} height={44} />
               )}
@@ -180,7 +189,9 @@ const ModalUser: React.FC<Props> = ({ isOpen, onClose }) => {
           {/* Footer */}
           <ModalUserLayout>
             {isLoading ? (
-              <ContainerLoading><Loader /></ContainerLoading>
+              <ContainerLoading>
+                <Loader />
+              </ContainerLoading>
             ) : (
               <>
                 <Switch
@@ -193,8 +204,8 @@ const ModalUser: React.FC<Props> = ({ isOpen, onClose }) => {
                   $backgroundColor="#FFF"
                   $color="#262D34"
                   $border="1px solid #262D34"
-                  $hoverBackgroundColor='#F9FBFF'
-                  $hoverColor='#262D34'
+                  $hoverBackgroundColor="#F9FBFF"
+                  $hoverColor="#262D34"
                   disabled={isLoading}
                   onClick={onClose}
                 >
