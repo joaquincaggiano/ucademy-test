@@ -10,9 +10,11 @@ import { GetUserById, GetUsersData } from '../../interfaces/fetches';
 import ModalWriteUser from '../modal/ModalWriteUser';
 import { HeaderStyled, HomeContainerStyled, TitleStyled } from '../../styles/home/home-style';
 import { ContainerLoading, Loader } from '../../styles/ui/loading';
+import { useSearchParams } from 'react-router';
 
 const Home = () => {
-  const [page, setPage] = useState(1);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const page = parseInt(searchParams.get("page") || "1");
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string>();
 
@@ -96,7 +98,9 @@ const Home = () => {
           totalPages={data.totalPages}
           page={page}
           totalElements={data.totalUsers}
-          onPageChange={setPage}
+          onPageChange={(newPage) => {
+            setSearchParams({ page: newPage.toString() });
+          }}
         >
           {data.users.map((user) => (
             <TableRow
