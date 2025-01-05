@@ -42,7 +42,6 @@ export class AwsService {
       });
 
       await this.s3.send(deleteCommand);
-      // console.log(`File ${key} deleted successfully from bucket ${bucket}`);
     } catch (error) {
       console.error(`Error deleting file ${key} from bucket ${this.bucketName}:`, error);
       throw error;
