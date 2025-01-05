@@ -1,4 +1,3 @@
-import { User } from '../../interfaces/user';
 import { Button } from '../../styles/ui/button';
 import ImageSvg from '../icons/ImageSvg';
 import UserSvg from '../icons/UserSvg';
@@ -24,21 +23,29 @@ import {
 import ModalUpdateStatus from './ModalUpdateStatus';
 import ModalWriteUser from './ModalWriteUser';
 import { ContainerLoading, Loader } from '../../styles/ui/loading';
+import { useUsersStore } from '../../store/users';
+import { useSearchParams } from 'react-router';
 
 interface Props {
-  user: User;
   isOpen: boolean;
   onClose: () => void;
 }
 
-const ModalUser: React.FC<Props> = ({ user, isOpen, onClose }) => {
+const ModalUser: React.FC<Props> = ({ isOpen, onClose }) => {
+  const [searchParams] = useSearchParams();
+  const page = parseInt(searchParams.get('page') || '1');
+
+  const user = useUsersStore((state) => state.user);
+  const setUser = useUsersStore((state) => state.setUser);
+  const setRefreshUsers = useUsersStore((state) => state.setRefreshUsers);
+
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string>();
-  const [isActive, setIsActive] = useState(user.isActive);
   const [modalActive, setModalActive] = useState(false);
   const [openWriteUser, setOpenWriteUser] = useState(false);
 
   if (!isOpen) return null;
+  if (!user) return null;
 
   const handleOverlayClick = (e: React.MouseEvent) => {
     if (e.target === e.currentTarget) {
@@ -50,7 +57,7 @@ const ModalUser: React.FC<Props> = ({ user, isOpen, onClose }) => {
     try {
       setIsLoading(true);
 
-      if (isActive && !status) {
+      if (user.isActive && !status) {
         setModalActive(true);
         return;
       }
@@ -72,7 +79,8 @@ const ModalUser: React.FC<Props> = ({ user, isOpen, onClose }) => {
         throw new Error(data.message);
       }
 
-      setIsActive(status);
+      setUser({ ...user, isActive: status });
+      setRefreshUsers(page);
     } catch (error: unknown) {
       if (error instanceof Error) {
         setError(error.message);
@@ -158,7 +166,7 @@ const ModalUser: React.FC<Props> = ({ user, isOpen, onClose }) => {
                     Móvil
                   </ModalUserInfoTitle>
                   <ModalUserInfoValue className="poppins-regular">
-                    {user.phone}
+                    {user.phone ?? '-'}
                   </ModalUserInfoValue>
                 </ModalUserInfo>
               </ModalUserInfoItem>
@@ -172,8 +180,8 @@ const ModalUser: React.FC<Props> = ({ user, isOpen, onClose }) => {
             ) : (
               <>
                 <Switch
-                  label={isActive ? 'Cuenta activa' : 'Cuenta inactiva'}
-                  checked={isActive}
+                  label={user.isActive ? 'Cuenta activa' : 'Cuenta inactiva'}
+                  checked={user.isActive}
                   onChange={handleSwitchChange}
                 />
 
@@ -208,14 +216,12 @@ const ModalUser: React.FC<Props> = ({ user, isOpen, onClose }) => {
           isOpen={modalActive}
           onClose={() => setModalActive(false)}
           userId={user.id.$oid}
-          setIsActive={setIsActive}
         />
       )}
 
       {openWriteUser && (
         <ModalWriteUser
           isOpen={openWriteUser}
-          user={user}
           onClose={() => setOpenWriteUser(false)}
         />
       )}
