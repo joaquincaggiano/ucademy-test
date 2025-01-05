@@ -139,7 +139,7 @@ export const ModalUserInfoValue = styled.span`
   color: #262d34;
 `;
 
-export const ModalUpdateStatusButtonContainer = styled.div`
+export const ModalButtonContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;

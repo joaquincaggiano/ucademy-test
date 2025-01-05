@@ -15,6 +15,8 @@ import {
 import { ContainerLoading, Loader } from '../../styles/ui/loading';
 import { useSearchParams } from 'react-router';
 import { useUsersStore } from '../../store/users';
+import TrashSvg from '../icons/TrashSvg';
+import ModalDeleteUser from '../modal/ModalDeleteUser';
 
 const Home = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -37,8 +39,13 @@ const Home = () => {
   });
 
   const [isModalUserOpen, setIsModalUserOpen] = useState(false);
-
   const [openWriteUser, setOpenWriteUser] = useState<boolean>(false);
+
+  const [hoverColor, setHoverColor] = useState<string>();
+  const [openDeleteUser, setOpenDeleteUser] = useState<{
+    isOpen: boolean;
+    userId: string;
+  }>();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -108,7 +115,14 @@ const Home = () => {
         </ContainerLoading>
       ) : (
         <Table
-          columns={['', 'Nombre y apellidos', 'Usuario', 'Email', 'Móvil']}
+          columns={[
+            '',
+            'Nombre y apellidos',
+            'Usuario',
+            'Email',
+            'Móvil',
+            'Acciones',
+          ]}
           totalPages={paginationData.totalPages}
           page={page}
           totalElements={paginationData.totalUsers}
@@ -160,6 +174,23 @@ const Home = () => {
               <TableCell className="poppins-regular">
                 {user.phone ?? '-'}
               </TableCell>
+              <TableCell className="poppins-regular">
+                <Button
+                  $border="1px solid #F31260"
+                  $backgroundColor="#F31260"
+                  $padding="5px"
+                  $hoverPadding="5px"
+                  $hoverBackgroundColor="#FFFFFF"
+                  onMouseEnter={() => setHoverColor(user.id.$oid)}
+                  onMouseLeave={() => setHoverColor(undefined)}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setOpenDeleteUser({ isOpen: true, userId: user.id.$oid });
+                  }}
+                >
+                  <TrashSvg color={hoverColor === user.id.$oid ? '#F31260' : '#FFFFFF'} />
+                </Button>
+              </TableCell>
             </TableRow>
           ))}
         </Table>
@@ -187,6 +218,14 @@ const Home = () => {
         <ModalWriteUser
           isOpen={openWriteUser}
           onClose={() => setOpenWriteUser(false)}
+        />
+      )}
+
+      {openDeleteUser && (
+        <ModalDeleteUser
+          isOpen={openDeleteUser.isOpen}
+          onClose={() => setOpenDeleteUser(undefined)}
+          userId={openDeleteUser.userId}
         />
       )}
     </HomeContainerStyled>
