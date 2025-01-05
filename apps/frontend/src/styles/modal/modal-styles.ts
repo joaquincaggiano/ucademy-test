@@ -16,6 +16,8 @@ export const ModalOverlay = styled.div<{ $isOpen: boolean }>`
 export const ModalContainer = styled.div`
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
   background-color: #fff;
   padding: 25px;
   border-radius: 8px;

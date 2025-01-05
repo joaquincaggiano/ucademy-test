@@ -1,7 +1,7 @@
 import { User } from './user';
 
-export interface UpdateUsersStatus {
-  status: 200 | 404;
+export interface FetchUserResponse {
+  status: number;
   message: string;
 }
 

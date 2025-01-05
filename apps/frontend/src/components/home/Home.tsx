@@ -3,13 +3,13 @@ import { User } from '../../interfaces/user';
 import PlusSvg from '../icons/PlusSvg';
 import Table from '../table/Table';
 import { TableCell, TableRow } from '../../styles/table/table-styles';
-import { LoadingStyled } from '../../styles/ui/loading';
 import ModalError from '../modal/ModalError';
 import { Button } from '../../styles/ui/button';
 import ModalUser from '../modal/ModalUser';
 import { GetUserById, GetUsersData } from '../../interfaces/fetches';
 import ModalWriteUser from '../modal/ModalWriteUser';
 import { HeaderStyled, HomeContainerStyled, TitleStyled } from '../../styles/home/home-style';
+import { ContainerLoading, Loader } from '../../styles/ui/loading';
 
 const Home = () => {
   const [page, setPage] = useState(1);
@@ -89,7 +89,7 @@ const Home = () => {
         </Button>
       </HeaderStyled>
       {isLoading ? (
-        <LoadingStyled>Cargando...</LoadingStyled>
+        <ContainerLoading $isGrow><Loader $width='40px' $height='40px' $borderWidth='4px' /></ContainerLoading>
       ) : (
         <Table
           columns={['', 'Nombre y apellidos', 'Usuario', 'Email', 'Móvil']}

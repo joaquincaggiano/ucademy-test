@@ -39,11 +39,12 @@ export class UsersService {
       return { status: 400, message: 'User already exists' };
     }
 
-    this.users.push({ id: { $oid: id }, ...user });
+    this.users.push({ id: { $oid: id }, ...user, isActive: true });
     fs.writeFileSync(
       path.join(__dirname, '../../../DB.json'),
       JSON.stringify(this.users)
     );
+    
     return { status: 200, message: 'User created successfully' };
   }
 

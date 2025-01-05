@@ -6,9 +6,8 @@ import EmailSvg from '../icons/EmailSvg';
 import PhoneSvg from '../icons/PhoneSvg';
 import { Switch } from '../switch/Switch';
 import { useState } from 'react';
-import { UpdateUsersStatus } from '../../interfaces/fetches';
+import { FetchUserResponse } from '../../interfaces/fetches';
 import ModalError from './ModalError';
-import { LoadingStyled } from '../../styles/ui/loading';
 import {
   ModalOverlay,
   ModalUserContainer,
@@ -24,6 +23,7 @@ import {
 } from '../../styles/modal/modal-styles';
 import ModalUpdateStatus from './ModalUpdateStatus';
 import ModalWriteUser from './ModalWriteUser';
+import { ContainerLoading, Loader } from '../../styles/ui/loading';
 
 interface Props {
   user: User;
@@ -66,7 +66,7 @@ const ModalUser: React.FC<Props> = ({ user, isOpen, onClose }) => {
         }
       );
 
-      const data: UpdateUsersStatus = await response.json();
+      const data: FetchUserResponse = await response.json();
 
       if (data.status !== 200) {
         throw new Error(data.message);
@@ -94,6 +94,7 @@ const ModalUser: React.FC<Props> = ({ user, isOpen, onClose }) => {
 
             <Button
               onClick={() => setOpenWriteUser(true)}
+              disabled={isLoading}
               $hoverBoxShadow="0 0 10px 0 rgba(0, 0, 0, 0.1)"
             >
               Editar estudiante
@@ -167,7 +168,7 @@ const ModalUser: React.FC<Props> = ({ user, isOpen, onClose }) => {
           {/* Footer */}
           <ModalUserLayout>
             {isLoading ? (
-              <LoadingStyled>Cargando...</LoadingStyled>
+              <ContainerLoading><Loader /></ContainerLoading>
             ) : (
               <>
                 <Switch
@@ -183,6 +184,7 @@ const ModalUser: React.FC<Props> = ({ user, isOpen, onClose }) => {
                   $hoverBackgroundColor='#F9FBFF'
                   $hoverColor='#262D34'
                   $hoverPadding='7.5px 9.5px'
+                  disabled={isLoading}
                   onClick={onClose}
                 >
                   Cerrar

@@ -8,7 +8,7 @@ import {
 } from '../../styles/modal/modal-styles';
 import { Button } from '../../styles/ui/button';
 import WarningSvg from '../icons/WarningSvg';
-import { UpdateUsersStatus } from '../../interfaces/fetches';
+import { FetchUserResponse } from '../../interfaces/fetches';
 import ModalError from './ModalError';
 
 interface Props {
@@ -36,7 +36,7 @@ const ModalUpdateStatus = ({ isOpen, onClose, userId, setIsActive }: Props) => {
         }
       );
 
-      const data: UpdateUsersStatus = await response.json();
+      const data: FetchUserResponse = await response.json();
 
       if (data.status !== 200) {
         throw new Error(data.message);
@@ -89,7 +89,7 @@ const ModalUpdateStatus = ({ isOpen, onClose, userId, setIsActive }: Props) => {
               $border="1px solid #e36058"
               $hoverBackgroundColor="#ffffff"
               $hoverColor="#e36058"
-              $hoverPadding="9.5px 17.5px"
+              $hoverPadding="10px 18px"
               onClick={handleStatus}
               disabled={isLoading}
             >

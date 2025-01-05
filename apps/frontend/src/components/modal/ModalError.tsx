@@ -33,18 +33,21 @@ const ModalError: React.FC<ModalProps> = ({ isOpen, onClose, description }) => {
 
         <ModalDescription>{description}</ModalDescription>
 
+        <div style={{ alignSelf: 'flex-end' }}>
         <Button
           $backgroundColor="#e36058"
           $color="#fff"
-          $padding="10px 18px"
+          $padding="8px 10px"
           $border="1px solid #e36058"
           $hoverBackgroundColor="#ffffff"
           $hoverColor="#e36058"
-          $hoverPadding="9.5px 17.5px"
+          $hoverPadding="8px 10px"
           onClick={onClose}
         >
           Cerrar
         </Button>
+
+        </div>
       </ModalContainer>
     </ModalOverlay>
   );

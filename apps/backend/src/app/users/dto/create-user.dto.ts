@@ -1,5 +1,4 @@
 import {
-  IsBoolean,
   IsEmail,
   IsNotEmpty,
   IsOptional,
@@ -32,8 +31,4 @@ export class CreateUsersDto {
   @IsNotEmpty()
   @IsEmail()
   email: string;
-
-  @IsBoolean()
-  @IsNotEmpty()
-  isActive: boolean;
 }
