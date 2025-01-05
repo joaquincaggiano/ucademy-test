@@ -8,7 +8,7 @@ import ModalUser from '../modal/ModalUser';
 import { GetUserById, GetUsersData } from '../../interfaces/fetches';
 import ModalWriteUser from '../modal/ModalWriteUser';
 import {
-  HeaderStyled,
+  HeaderHomeStyled,
   HomeContainerStyled,
   TitleStyled,
 } from '../../styles/home/home-style';
@@ -99,7 +99,7 @@ const Home = () => {
 
   return (
     <HomeContainerStyled>
-      <HeaderStyled>
+      <HeaderHomeStyled>
         <TitleStyled className="poppins-regular">Alumnos</TitleStyled>
         <Button
           $padding="10px 18px"
@@ -108,7 +108,7 @@ const Home = () => {
         >
           <PlusSvg width={20} height={20} color="#fff" /> Nuevo alumno
         </Button>
-      </HeaderStyled>
+      </HeaderHomeStyled>
       {isLoading ? (
         <ContainerLoading $isGrow>
           <Loader $width="40px" $height="40px" $borderWidth="4px" />

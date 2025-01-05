@@ -5,6 +5,7 @@ import { NavLink } from 'react-router';
 import { Outlet } from 'react-router';
 import {
   DashboardStyled,
+  HeaderDashboardStyled,
   MainStyled,
   SidebarHeaderStyled,
   SidebarItemStyled,
@@ -39,6 +40,27 @@ const Dashboard = () => {
           </SidebarItemStyled>
         </NavLink>
       </SidebarStyled>
+
+      <HeaderDashboardStyled>
+        <UcademySvg />
+
+        <NavLink
+          to="/"
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: '5px',
+            textDecoration: 'none',
+          }}
+        >
+          <div>
+            <GraduateSvg width={20} height={20} />
+          </div>
+          <SidebarItemStyled className="poppins-regular">
+            Alumnos
+          </SidebarItemStyled>
+        </NavLink>
+      </HeaderDashboardStyled>
 
       <MainStyled>
         <Outlet />

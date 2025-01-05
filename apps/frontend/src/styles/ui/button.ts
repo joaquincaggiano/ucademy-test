@@ -26,6 +26,7 @@ export const Button = styled.button<{
   font-style: normal;
   font-size: ${({ $fontSize }) => $fontSize || '14px'};
   cursor: pointer;
+  width: fit-content;
 
   &:hover {
     color: ${({ $hoverColor }) => $hoverColor || '#fff'};

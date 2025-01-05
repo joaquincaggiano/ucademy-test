@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const HomeContainerStyled = styled.div`
   display: flex;
@@ -11,9 +11,15 @@ export const TitleStyled = styled.h1`
   color: #262d34;
 `;
 
-export const HeaderStyled = styled.div`
+export const HeaderHomeStyled = styled.div`
   display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
+  flex-direction: column;
+  margin-bottom: 20px;
+
+  @media (min-width: 768px) {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0;
+  }
 `;

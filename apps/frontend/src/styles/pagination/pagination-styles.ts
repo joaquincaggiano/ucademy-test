@@ -2,6 +2,18 @@ import styled, { css } from 'styled-components';
 
 export const PaginationContainer = styled.div`
   display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+
+  @media (min-width: 768px) {
+    flex-direction: row;
+  }
+`;
+
+export const PaginationNumbersContainer = styled.div`
+  display: flex;
   align-items: center;
   justify-content: center;
   gap: 10px;

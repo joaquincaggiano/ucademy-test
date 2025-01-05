@@ -2,10 +2,14 @@ import styled from 'styled-components';
 
 export const DashboardStyled = styled.div`
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   width: 100%;
   min-height: 100vh;
-  flex-grow: 1;
+
+  @media (min-width: 768px) {
+    flex-direction: row;
+    /* flex-grow: 1; */
+  }
 `;
 
 export const SidebarStyled = styled.div`
@@ -15,9 +19,13 @@ export const SidebarStyled = styled.div`
   padding-bottom: 20px;
   background-color: #ffffff;
   border-right: 1px solid #eef0f5;
-  display: flex;
+  display: none;
   flex-direction: column;
   gap: 50px;
+
+  @media (min-width: 768px) {
+    display: flex;
+  }
 `;
 
 export const SidebarHeaderStyled = styled.div`
@@ -29,6 +37,18 @@ export const SidebarHeaderStyled = styled.div`
 export const SidebarItemStyled = styled.span`
   font-size: 14px;
   color: #262d34;
+`;
+
+export const HeaderDashboardStyled = styled.header`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 32px;
+  background-color: #fff;
+
+  @media (min-width: 768px) {
+    display: none;
+  }
 `;
 
 export const MainStyled = styled.main`

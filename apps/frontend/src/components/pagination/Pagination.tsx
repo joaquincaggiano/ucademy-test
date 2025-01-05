@@ -6,7 +6,7 @@ import DoubleArrowLeftSvg from '../icons/DoubleArrowLeftSvg';
 import DoubleArrowRightSvg from '../icons/DoubleArrowRightSvg';
 import NavigationButton from './NavigationButton';
 import PageNumber from './PageNumber';
-import { Ellipsis, PaginationContainer } from '../../styles/pagination/pagination-styles';
+import { Ellipsis, PaginationContainer, PaginationNumbersContainer } from '../../styles/pagination/pagination-styles';
 
 interface PaginationProps {
   currentPage: number;
@@ -49,6 +49,7 @@ const Pagination: React.FC<PaginationProps> = ({
         </span>
       )}
 
+      <PaginationNumbersContainer>
       <div
         onMouseEnter={() => setColorArrowLeft('#0abb87')}
         onMouseLeave={() => setColorArrowLeft('#262D34')}
@@ -139,6 +140,7 @@ const Pagination: React.FC<PaginationProps> = ({
           ariaLabel="Next page"
         />
       </div>
+      </PaginationNumbersContainer>
 
       <select
         value={currentPage}
