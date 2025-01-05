@@ -50,8 +50,22 @@ const ModalWriteUser = ({ isOpen, onClose }: Props) => {
     },
   });
 
+  const [file, setFile] = useState<string>();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string>();
+
+  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (!e.target.files) {
+      return;
+    }
+
+    // show the preview of the file
+    const reader = new FileReader();
+    reader.onload = () => {
+      setFile(reader.result as string);
+    };
+    reader.readAsDataURL(e.target.files[0]);
+  };
 
   const onSubmit = async (data: FieldValues) => {
     const url = user
@@ -60,12 +74,14 @@ const ModalWriteUser = ({ isOpen, onClose }: Props) => {
     try {
       setIsLoading(true);
 
+      const base64String = file?.split(',')[1];
+
       const response = await fetch(`http://localhost:3000${url}`, {
         method: user ? 'PUT' : 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(data),
+        body: JSON.stringify({ ...data, base64String }),
       });
 
       const res: FetchUserResponse = await response.json();
@@ -140,7 +156,6 @@ const ModalWriteUser = ({ isOpen, onClose }: Props) => {
           {/* Body */}
           <DivFormContainer>
             {/* Nombre */}
-
             <FormItem>
               <Label htmlFor="name">Nombre</Label>
               <InputContainer>
@@ -204,6 +219,12 @@ const ModalWriteUser = ({ isOpen, onClose }: Props) => {
                   )}
                 </div>
               </InputContainer>
+            </FormItem>
+
+            {/* Foto de perfil */}
+            <FormItem>
+              <Label htmlFor="image">Foto de perfil</Label>
+              <input id="image" type="file" accept="image/*" onChange={handleFileChange} />
             </FormItem>
           </DivFormContainer>
 

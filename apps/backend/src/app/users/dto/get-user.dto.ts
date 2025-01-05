@@ -47,4 +47,8 @@ export class UsersDto {
   @IsBoolean()
   @IsNotEmpty()
   isActive: boolean;
+
+  @IsString()
+  @IsOptional()
+  image: string;
 }

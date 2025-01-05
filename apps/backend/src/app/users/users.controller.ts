@@ -34,8 +34,8 @@ export class UsersController {
   }
 
   @Post('/create')
-  createUser(@Body() body: CreateUsersDto) {
-    const response = this.usersService.createUser(body);
+  async createUser(@Body() body: CreateUsersDto) {
+    const response = await this.usersService.createUser(body);
 
     return {
       status: response.status,
@@ -44,8 +44,8 @@ export class UsersController {
   }
 
   @Put('/:id/update')
-  updateUser(@Param('id') id: string, @Body() body: UpdateUsersDto) {
-    const response = this.usersService.updateUser(id, body);
+  async updateUser(@Param('id') id: string, @Body() body: UpdateUsersDto) {
+    const response = await this.usersService.updateUser(id, body);
 
     return {
       status: response.status,
