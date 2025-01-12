@@ -6,7 +6,7 @@ export const FormContainer = styled.form`
   /* overflow-y: auto; */
   display: flex;
   flex-direction: column;
-  gap: 40px;
+  gap: 20px;
   padding: 20px;
   background-color: #ffffff;
   border-radius: 5px;
