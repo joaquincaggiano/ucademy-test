@@ -135,11 +135,16 @@ export class UsersService {
     return { status: 200, message: 'User status updated successfully' };
   }
 
-  deleteUser(id: string): { status: number; message: string } {
+  async deleteUser(id: string): Promise<{ status: number; message: string }> {
     const user = this.users.find((user) => user.id.$oid === id);
 
     if (!user) {
       return { status: 404, message: 'User not found' };
+    }
+
+    if (user.image) {
+      const key = `profile_image/${id}.png`;
+      await this.awsService.deleteImage(key);
     }
 
     this.users = this.users.filter((user) => user.id.$oid !== id);

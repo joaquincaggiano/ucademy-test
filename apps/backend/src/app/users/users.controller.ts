@@ -69,8 +69,8 @@ export class UsersController {
   }
 
   @Delete('/:id/delete')
-  deleteUser(@Param('id') id: string) {
-    const response = this.usersService.deleteUser(id);
+  async deleteUser(@Param('id') id: string) {
+    const response = await this.usersService.deleteUser(id);
 
     return {
       status: response.status,
